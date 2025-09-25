@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ana Luiza 🎂 & Guilherme 💛</title>
+  <meta name="description" content="Site especial para comemorar o aniversário da Ana Luiza e 1 ano de namoro!" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg1:#fff7f9;       /* base clara */
+      --bg2:#ffeef3;       /* gradiente suave */
+      --accent:#ff6b9a;    /* rosa princesa */
+      --accent-2:#8ad1c2;  /* verde pastel água */
+      --brown:#7a5a47;     /* marrom aconchego */
+      --ink:#4a3b34;       /* texto principal */
+      --muted:#7d6e67;     /* texto secundário */
+      --card:#ffffff;      /* cartões */
+      --shadow: 0 10px 30px rgba(0,0,0,.08);
+      --glass: rgba(255,255,255,.55);
+      --radius: 22px;
+    }
+    html,body{height:100%}
+    body{
+      margin:0; font-family: 'Quicksand', system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial; color:var(--ink);
+      background: radial-gradient(1200px 800px at 10% 0%, var(--bg2), var(--bg1));
+      overflow-x:hidden;
+    }
+    /* Corações flutuantes de fundo */
+    .hearts-bg{position:fixed; inset:0; pointer-events:none; z-index:-1;}
+    .heart{position:absolute; width:20px; aspect-ratio:1/1; background:var(--accent); transform:rotate(45deg); opacity:.12; filter:blur(.3px); border-radius:4px;}
+    .heart::before,.heart::after{content:""; position:absolute; inset:0; background:inherit; border-radius:50%;}
+    .heart::before{left:-50%;}
+    .heart::after{top:-50%;}
+    @keyframes floatUp{from{transform:translateY(0) rotate(45deg); opacity:.12} to{transform:translateY(-120vh) rotate(45deg); opacity:0}}
+
+    header{
+      position:sticky; top:0; z-index:50; backdrop-filter: saturate(1.2) blur(8px);
+      background:linear-gradient(180deg, rgba(255,255,255,.8), rgba(255,255,255,.45));
+      border-bottom:1px solid rgba(122,90,71,.08);
+    }
+    .wrap{max-width:1100px; margin:0 auto; padding:16px 24px;}
+    .bar{display:flex; align-items:center; gap:16px;}
+    .brand{display:flex; align-items:center; gap:12px; font-weight:700; letter-spacing:.3px; color:var(--brown)}
+    .brand .script{font-family:"Great Vibes", cursive; font-size:28px; line-height:1;}
+    .chip{font-size:12px; padding:6px 10px; border-radius:999px; background:linear-gradient(90deg,var(--accent-2), #ffd3e1); color:#3b2d28; border:1px solid rgba(122,90,71,.15);}
+    .spacer{flex:1}
+    .btn{appearance:none; border:0; padding:10px 14px; border-radius:14px; background:var(--ink); color:white; box-shadow:var(--shadow); cursor:pointer; transition:.2s transform, .2s opacity, .2s filter;}
+    .btn:hover{transform:translateY(-2px)}
+    .btn.alt{background:var(--accent);}
+
+    /* Hero */
+    .hero{position:relative; padding:60px 24px 24px;}
+    .hero .container{max-width:1100px; margin:0 auto; display:grid; grid-template-columns:1.25fr .9fr; gap:26px; align-items:center;}
+    .hero-card{background:linear-gradient(180deg, rgba(255,255,255,.75), rgba(255,255,255,.55)); border:1px solid rgba(122,90,71,.15); border-radius:var(--radius); box-shadow:var(--shadow); padding:28px;}
+    .kicker{color:var(--muted); font-weight:600; letter-spacing:.12em; text-transform:uppercase; font-size:12px;}
+    .title{font-family:"Great Vibes", cursive; font-size:64px; margin:.2em 0 .3em; color:#6f4c3e; text-shadow:0 2px 0 rgba(255,255,255,.5)}
+    .lead{font-size:18px; color:var(--ink)}
+    .meta{display:flex; gap:10px; flex-wrap:wrap; margin:18px 0 0}
+    .meta .pill{background:#fff; border:1px solid rgba(122,90,71,.15); color:#5b463c; padding:8px 12px; border-radius:999px; font-size:13px}
+
+    .frame{
+      background: repeating-linear-gradient(45deg, #f1e7e1 0 10px, #f6efea 10px 20px);
+      border: 10px solid #fdf7f4; border-radius: 26px; position:relative; box-shadow: var(--shadow);
+      min-height: 360px;
+      display:grid; place-items:center;
+    }
+
+    .actions{display:flex; gap:12px; margin-top:22px}
+
+    /* Galeria */
+    section{padding:24px}
+    .section{max-width:1100px; margin:0 auto}
+    .section h2{font-size:28px; margin:8px 0 6px; color:#5b463c}
+    .section p.sub{color:var(--muted); margin:0 0 16px}
+
+
+
+    /* Linha do tempo */
+    .timeline{display:grid; grid-template-columns:repeat(12,1fr); gap:16px}
+    .t-card{grid-column: span 4; background:linear-gradient(180deg, rgba(255,255,255,.9), rgba(255,255,255,.6)); border:1px solid rgba(122,90,71,.15); border-radius:18px; padding:16px; box-shadow: var(--shadow); opacity:0; transform:translateY(8px); transition:.5s}
+    .t-card.show{opacity:1; transform:none}
+    .t-card .when{font-size:12px; color:var(--muted); letter-spacing:.08em; text-transform:uppercase}
+    .t-card .what{font-weight:700; color:#5b463c; margin:4px 0 6px}
+    .t-photo{min-height:150px; border-radius:12px; background: repeating-linear-gradient(45deg, #eee 0 10px, #f7f7f7 10px 20px); display:flex; align-items:center; justify-content:center; color:#999; border:1px solid rgba(122,90,71,.15); padding:8px}
+
+    /* Cartão de Parabéns */
+    .card{background:linear-gradient(180deg, rgba(255,255,255,.9), rgba(255,255,255,.7)); border:1px solid rgba(122,90,71,.15); border-radius:20px; padding:20px; box-shadow:var(--shadow)}
+    .note{font-size:16px; line-height:1.7; color:#5b463c}
+
+    /* Rodapé */
+    footer{padding:40px 24px; text-align:center; color:#7a6a63}
+
+    /* Mobile tweaks */
+    @media (max-width: 900px){
+      .hero .container{grid-template-columns:1fr;}
+      .title{font-size:48px}
+      .frame{min-height:280px}
+    }
+    @media (max-width: 520px){
+      .wrap{padding:10px 16px}
+      .brand .script{font-size:24px}
+      .chip{display:none}
+      .btn{padding:8px 12px; border-radius:12px}
+      header .bar{gap:8px}
+      .hero{padding-top:28px}
+      .title{font-size:42px}
+      .lead{font-size:16px}
+      .t-card{grid-column: span 12}
+      footer{padding:30px 16px; margin-top:20px; position:relative; z-index:10}
+      section{padding:16px}
+    }
+  </style>
+</head>
+<body>
+  <!-- Fundo de corações flutuantes -->
+  <div class="hearts-bg" id="hearts"></div>
+
+  <header>
+    <div class="wrap bar">
+      <div class="brand">
+        <span class="script">Ana Luiza ❤ Guilherme</span>
+        <span class="chip">Quase 1 ano juntos</span>
+      </div>
+      <div class="spacer"></div>
+      <button class="btn alt" id="btnConfetti" aria-label="Lançar confetes">🎉 Surpresa</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" aria-labelledby="t-title">
+      <div class="container">
+        <div class="hero-card">
+          <div class="kicker">Feliz aniversário meu amor! 🎂 26 aninhos</div>
+          <h1 id="t-title" class="title">Hoje é o seu dia 🥳🥳🥳</h1>
+          <p class="lead">Amanhã irei completar 21 anos, e minha vida atualmente não seria tão boa e especial, sem ter você ao meu lado. Este cantinho é para celebrar <strong>você</strong>, nossa história e todos os sorrisos que já colecionamos nesse quase primeiro ano juntos.</p>
+          <div class="meta">
+            <span class="pill">Amor, risadas e memórias</span>
+            <span class="pill">1° capítulo de muitos 📖</span>
+            <span class="pill">Uma paixão que não acaba</span>
+          </div>
+          <div class="actions">
+          </div>
+        </div>
+        <div class="frame" aria-label="Área para foto retrato">
+          <!-- Moldura indicativa do tamanho da foto (4:5). Ao fazer upload, a primeira foto aparece aqui. -->
+          <img id="heroPhoto" src="imagens/primeiro.jpg" alt="Foto do casal" style="display:none; border-radius:16px; max-width:100%; max-height:100%; box-shadow: var(--shadow)" />
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="linha">
+      <div class="section">
+        <h2 id="linha">Pequena linha do tempo</h2>
+        <p class="sub">Alguns marcos e momentos aleatórios até o momento, que nós vivemos</p>
+        <div class="timeline" id="timeline">
+          <article class="t-card">
+            <div class="what">Nosso primeiro encontro ✨</div>
+            <p class="note">A nossa primeira saida juntos, ambos estavam com certeza muito nervosos (Ou com algum problema de estomogo). Conversamos bastante, rimos bastante, e no fim, seguimos juntos, até hoje.</p>
+            <div class="t-photo">
+              <img src="imagens/primeiro_encontro.jpg" alt="Nosso começo" style="width:100%; height:100%; object-fit:cover; border-radius:12px" />
+            </div>
+          </article>
+          <article class="t-card">
+            <div class="what">Evento de animes e jogos</div>
+            <p class="note">Esse é meu lugar, e fico muito feliz que, mesmo por não entender muito bem, você estava lá. Eu não fui muito bom com você, mas hoje vejo o quão errado e o quão idiota eu fui.</p>
+            <div class="t-photo">
+              <img src="imagens/evento_animes_jogos.jpg" alt="Evento de animes e jogos" style="width:100%; height:100%; object-fit:cover; border-radius:12px" />
+            </div>
+          </article>
+          <article class="t-card">
+            <div class="what">Dia do seu evento de artes</div>
+            <p class="note">Assim como você ficou no meu evento de animes, eu fiquei nesse aqui rsrs. Mas fiquei muito feliz por você está feliz, foi muito bom observar seu sorriso de longe. Esse dia mostrou que você é minha paz, e que cada segundo ao seu lado, é um sonho realizado.</p>
+            <div class="t-photo">
+              <img src="imagens/dia_da_arte.jpg" alt="Dia do evento de artes" style="width:100%; height:100%; object-fit:cover; border-radius:12px" />
+            </div>
+          </article>
+          <article class="t-card">
+            <div class="what">Piquinique</div>
+            <p class="note">Esse foi um dos nosso primeiros (de muitos) eventos diferentes rs. Um piquenique do nada no meio do parque chico mendes. Do nada? Sim! Faria de novo? Com certeza!!!</p>
+            <div class="t-photo">
+              <img src="imagens/piquenique.jpg" alt="Piquenique" style="width:100%; height:100%; object-fit:cover; border-radius:12px" />
+            </div>
+          </article>
+          <article class="t-card">
+            <div class="what">Menção honrosa</div>
+            <p class="note">Achei essa foto aqui na minha coleção, e achei genial kkk</p>
+            <div class="t-photo">
+              <img src="imagens/doidos.jpg" alt="Menção honrosa" style="width:100%; height:100%; object-fit:cover; border-radius:12px" />
+            </div>
+          </article>
+          <article class="t-card">
+            <div class="what">Menção honrosa 2</div>
+            <p class="note">Outra foto nada haver que salvei kk essa aqui eu estava te ensinando a como ficar com os olhos separados</p>
+            <div class="t-photo">
+              <img src="imagens/olhos.jpg" alt="Menção honrosa 2" style="width:100%; height:100%; object-fit:cover; border-radius:12px" />
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="carta">
+      <div class="section">
+        <h2 id="carta">Cartinha para você, Meu amor 💌</h2>
+        <div class="card">
+          <p class="note" id="loveNote" contenteditable>
+            Meu amor, obrigado por existir e escolher dividir os dias comigo. Que seus 26 sejam iluminados, cheios de saúde, risadas e conquistas. Eu te admiro, te respeito e te amo. Vamos seguir colecionando momentos, um após o outro, sempre lado a lado.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Feito com 💗 por Guilherme Santos — para Ana Luiza. 
+  </footer>
+
+  <!-- Canvas para confete -->
+  <canvas id="confetti" style="position:fixed; inset:0; pointer-events:none"></canvas>
+
+  <script>
+  // ====== Corações flutuantes no fundo ======
+  (function hearts(){
+    const root = document.getElementById('hearts');
+    const colors = ['#ff6b9a','#ff94b6','#ffc3d6','#8ad1c2','#ffd6e7'];
+    function spawn(){
+      const h = document.createElement('div'); h.className = 'heart';
+      const size = 10 + Math.random()*26; h.style.width = size+'px';
+      h.style.left = (Math.random()*100)+'%';
+      h.style.background = colors[Math.floor(Math.random()*colors.length)];
+      const dur = 10 + Math.random()*14; h.style.animation = `floatUp ${dur}s linear forwards`;
+      h.style.bottom = '-40px';
+      root.appendChild(h);
+      setTimeout(()=> h.remove(), dur*1000);
+    }
+    for(let i=0;i<30;i++) setTimeout(spawn, i*200);
+    setInterval(spawn, 1200);
+  })();
+
+  // ====== Exibir imagem do hero ======
+  const heroPhoto = document.getElementById('heroPhoto');
+  heroPhoto.style.display = 'block';
+
+  // ====== Revelar timeline ao rolar ======
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{ if(entry.isIntersecting) entry.target.classList.add('show'); });
+  }, {threshold:.2});
+  document.querySelectorAll('.t-card').forEach(el=> io.observe(el));
+
+  // ====== Confete ======
+  const canvas = document.getElementById('confetti');
+  const ctx = canvas.getContext('2d');
+  let conf = [];
+  function resize(){ canvas.width = innerWidth; canvas.height = innerHeight }
+  addEventListener('resize', resize); resize();
+  function shootConfetti(){
+    const count = 140; conf = [];
+    for(let i=0;i<count;i++){
+      conf.push({
+        x: Math.random()*canvas.width,
+        y: -20 - Math.random()*100,
+        s: 5+Math.random()*8,
+        vy: 2+Math.random()*2.5,
+        vx: (Math.random()-.5)*2,
+        a: Math.random()*Math.PI,
+        va: (Math.random()-.5)*0.2,
+        col: `hsl(${Math.floor(Math.random()*360)},80%,70%)`
+      });
+    }
+  }
+  function loop(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    conf.forEach(p=>{
+      p.x += p.vx; p.y += p.vy; p.a += p.va;
+      ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.a);
+      ctx.fillStyle = p.col; ctx.fillRect(-p.s/2,-p.s/2,p.s,p.s);
+      ctx.restore();
+    });
+    conf = conf.filter(p=> p.y < canvas.height + 30);
+    requestAnimationFrame(loop);
+  }
+  loop();
+  document.getElementById('btnConfetti').addEventListener('click', shootConfetti);
+
+  </script>
+</body>
+</html>
